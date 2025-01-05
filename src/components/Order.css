@@ -1,0 +1,163 @@
+/* Container for the entire order summary */
+.order-summary {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Title of the order */
+.order-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Table info styling */
+.table-info p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.table-info strong {
+  font-weight: bold;
+}
+
+/* Order header section */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-item, .header-qty, .header-price {
+  flex: 1;
+  text-align: center;
+}
+
+/* Order List Section */
+.order-list {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.order-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.order-details {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.order-item, .order-qty, .order-price {
+  flex: 1;
+  text-align: center;
+}
+
+.order-note {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.note-input {
+  padding: 5px;
+  margin-right: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 150px;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: red;
+}
+
+/* Subtotal and Payment Section */
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.subtotal {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.subtotal span {
+  font-size: 20px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.btn-primary i {
+  margin-right: 8px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Make the layout responsive for smaller screens */
+@media (max-width: 768px) {
+  .order-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .order-card {
+    flex-direction: column;
+  }
+
+  .order-details {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .order-note {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .note-input {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .delete-btn {
+    margin-top: 10px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

@@ -1,0 +1,32 @@
+.table-card {
+  background-color: #24243e;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  width: 220px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.table-card h5 {
+  color: #ff6b6b;
+  margin: 0;
+}
+
+.table-card p {
+  color: white;
+}
+
+.table-card.dragging {
+  opacity: 0.5;
+}
+
+.table-card.combined {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.table-card:hover {
+  transform: scale(1.05);
+}

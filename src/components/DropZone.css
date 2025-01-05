@@ -1,0 +1,20 @@
+.drop-zone {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #24243e;
+  border-radius: 12px;
+  text-align: center;
+  color: #ff6b6b;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.drop-zone.highlight {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.drop-zone:hover {
+  background-color: #ff6b6b;
+  color: white;
+}

@@ -1,0 +1,64 @@
+.billing-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #1a1a2e;
+  height: 100vh;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.receipt-container {
+  width: 300px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.receipt-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.receipt-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.receipt-details,
+.receipt-footer {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.receipt-line {
+  border-top: 1px dashed #ddd;
+  margin: 10px 0;
+}
+
+.receipt-items table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.receipt-items th,
+.receipt-items td {
+  text-align: left;
+  padding: 5px 0;
+}
+
+.receipt-items th {
+  border-bottom: 1px solid #ddd;
+}
+
+.receipt-footer p {
+  margin: 5px 0;
+  text-align: right;
+}
+
+.receipt-thankyou {
+  text-align: center;
+  margin-top: 10px;
+}

@@ -1,0 +1,154 @@
+/* General Content */
+.content {
+  flex: 1;
+  margin-left: 80px;
+  padding: 20px;
+  background-color: #1b1b3a;
+  color: #fff;
+  overflow: auto;
+}
+
+/* Title and Date Styling */
+.content-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff6b6b;
+}
+
+.content-date {
+  font-size: 1rem;
+  color: #e0e0e0;
+}
+
+/* Navigation Wrapper */
+.nav-wrapper {
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+/* Horizontal Scrollable Tabs */
+.nav-tabs {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  white-space: nowrap; /* Prevents wrapping */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+  scroll-behavior: smooth; /* Smooth scroll for modern browsers */
+  background-color: #24243e;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Hide scrollbar visually but keep functionality */
+.nav-tabs::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari */
+}
+
+.nav-tabs {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer/Edge */
+}
+
+/* Nav Item Styling */
+.nav-tabs .nav-item {
+  flex: 0 0 auto; /* Prevent shrinking */
+  margin-right: 12px;
+}
+
+.nav-tabs .nav-link {
+  color: #ff6b6b;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+  background-color: rgba(255, 107, 107, 0.1);
+  color: #ff3b3b;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: #ff6b6b;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(255, 107, 107, 0.5);
+}
+
+/* Dish Cards Section */
+.dish-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding: 20px;
+  background-color: #1b1b3a;
+}
+
+.dish-card {
+  background-color: #24243e;
+  color: #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  width: 220px;
+  text-align: center;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.dish-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.dish-card h5 {
+  font-size: 1.2rem;
+  color: #fff;
+  margin: 10px 0 5px;
+}
+
+.dish-card p {
+  font-size: 1rem;
+  color: #ff6b6b;
+}
+
+.dish-card button {
+  background-color: #ff6b6b;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 8px 15px;
+  border-radius: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dish-card button:hover {
+  background-color: #ff3b3b;
+}
+
+.dish-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .content {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .nav-tabs .nav-link {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+
+  .dish-card {
+    width: 180px;
+  }
+}

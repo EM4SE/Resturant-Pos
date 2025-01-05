@@ -1,0 +1,101 @@
+/* Wrapper for Scrollable Tabs */
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #1f1f3a, #24243e);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  padding: 10px;
+  overflow: hidden;
+  position: relative;
+  width: 100%; /* Ensure it takes full width */
+}
+
+/* Tabs Container: Touch-friendly and Smooth Scrolling */
+.nav-tabs-container {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Prevent wrapping */
+  -webkit-overflow-scrolling: touch; /* Momentum scrolling for touch devices */
+  scroll-behavior: smooth; /* Smooth scroll */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-tabs-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari */
+}
+
+/* Tabs List */
+.nav-tabs {
+  display: flex;
+  gap: 15px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Individual Tabs */
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  background-color: #2a2a4d;
+  color: #e0e0e0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.nav-link:active {
+  transform: scale(0.95); /* Press effect */
+}
+
+.nav-link:hover {
+  background: #ff6b6b;
+  color: white;
+}
+
+.nav-link.active {
+  background: #ff6b6b;
+  color: white;
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.5);
+}
+
+/* Animated Active Tab Indicator */
+.tab-indicator {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 4px;
+  background: linear-gradient(to right, #ff6b6b, #ff3b3b);
+  border-radius: 2px;
+  animation: slide-in 0.3s ease;
+}
+
+@keyframes slide-in {
+  from {
+    width: 0;
+  }
+  to {
+    width: 60%;
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .nav-link {
+    font-size: 1rem;
+    padding: 10px 16px;
+  }
+}

@@ -1,0 +1,18 @@
+.body {
+  background-color:#1b1b3a;
+  color: #fff;
+  height: 100vh;
+  overflow: hidden;
+  
+}
+
+.container-fluid {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 768px) {
+  .container-fluid {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+  }
+}
