@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./navbar.css";
 
-const Navbar = ({ navItems }) => {
+const Navbar = ({ navItems, onCategoryClick }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Set Active Tab
-  const handleTabClick = (index) => {
+  // Handle initial "All" category
+  useEffect(() => {
+    if (navItems.length > 0) {
+      onCategoryClick(navItems[0]);
+    }
+  }, [navItems]);
+
+  // Set Active Tab and trigger category filter
+  const handleTabClick = (index, category) => {
     setActiveIndex(index);
+    onCategoryClick(category);
   };
 
   return (
@@ -17,7 +25,7 @@ const Navbar = ({ navItems }) => {
             <li key={index} className="nav-item">
               <button
                 className={`nav-link ${activeIndex === index ? "active" : ""}`}
-                onClick={() => handleTabClick(index)}
+                onClick={() => handleTabClick(index, item)}
               >
                 {item}
               </button>

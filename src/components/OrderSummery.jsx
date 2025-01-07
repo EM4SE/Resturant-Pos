@@ -2,126 +2,174 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './OrderSummery.css';
 
-const OrderSummary = ({ table, orders, setOrders, updateBills }) => {
+const OrderSummary = ({ table, orders, setOrders }) => {
   const navigate = useNavigate();
-
-  // Create a static order number that stays the same throughout the session
   const [orderNumber, setOrderNumber] = useState(null);
+  const [orderType, setOrderType] = useState('Dining'); // Default to Dining
 
-  // Initialize the order number when the table is first selected
   useEffect(() => {
     if (table && !orderNumber) {
-      setOrderNumber(`${table.number}-001`); // Using table number and static suffix
+      setOrderNumber(`${table.number}-001`);
     }
   }, [table, orderNumber]);
 
-  // Calculate the subtotal
   const subtotal = orders.reduce((total, order) => total + order.price * order.qty, 0).toFixed(2);
 
-  // Handle note change
   const handleNoteChange = (id, note) => {
     setOrders(orders.map((order) => (order.id === id ? { ...order, note } : order)));
   };
 
-  // Handle delete item
+  const handleQtyChange = (id, value) => {
+    const newQty = parseInt(value) || 0;
+    if (newQty >= 0) {
+      setOrders(orders.map((order) => 
+        order.id === id ? { ...order, qty: newQty } : order
+      ));
+    }
+  };
+
   const handleDeleteItem = (id) => {
     setOrders(orders.filter((order) => order.id !== id));
   };
 
-  // Redirect to Bills page and add a new bill each time
-  const handleProceedToBills = () => {
+  const handleAddBill = async () => {
     try {
-      // Create a new bill for the table with the current orders
-      const newBill = {
-        orderNumber: orderNumber, // Use the static order number
-        amount: parseFloat(subtotal), // Use the subtotal as the bill amount
-        orders, // Store the orders in the bill
+      // Prepare the order data
+      const orderData = {
+        tableNumber: table.number,
+        orderType: orderType,
+        tableAssistant: table.employee,
+        numberOfCustomers: table.customers,
+        orderItems: orders.map(order => ({
+          itemName: order.item,
+          quantity: order.qty,
+          unitPrice: order.price,
+          totalPrice: order.price * order.qty
+        })),
+        totalAmount: parseFloat(subtotal),
+        orderStatus: "PENDING"
       };
 
-      // Update the bills associated with the table (assuming `updateBills` is a prop)
-      updateBills((prevBills) => [
-        ...prevBills,
-        { ...newBill, tableId: table.id },
-      ]);
+      // Make the API call
+      const response = await fetch('http://localhost:8080/api/orders/addorder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData)
+      });
 
-      // Navigate to the Bills page, passing the table
-      if (table) {
-        navigate('/bills', { state: { table } });
-      } else {
-        throw new Error("Table data is missing.");
+      if (!response.ok) {
+        throw new Error('Failed to add order');
       }
+
+      // Navigate after successful order
+      navigate('/');
     } catch (error) {
-      // Catch any errors and log them
-      console.error("Error while navigating to BillsPage:", error);
-      alert("An error occurred while navigating to the Bills page. Please try again.");
+      console.error('Error adding order:', error);
+      // You might want to show an error message to the user here
     }
   };
 
   return (
     <div className="order-summary">
-      <h5 className="order-title">Order #{orderNumber}</h5> {/* Static order number */}
+      <div className="order-header-section">
+        <h2 className="order-title">Order #{orderNumber}</h2>
+        
+        <div className="order-type-selector">
+          <select 
+            value={orderType}
+            onChange={(e) => setOrderType(e.target.value)}
+            className="order-type-select"
+          >
+            <option value="Dining">Dining</option>
+            <option value="Take Away">Take Away</option>
+          </select>
+        </div>
 
-      {/* Table Info */}
-      <div className="table-info">
-        {table ? (
-          <>
-            <p><strong>Table Number:</strong> {table.number}</p> {/* Display the table number */}
-            <p><strong>Status:</strong> {table.status}</p>
-            <p><strong>Employee:</strong> {table.employee}</p>
-            <p><strong>Customers:</strong> {table.customers}</p>
-          </>
-        ) : (
-          <p>No table selected</p>
-        )}
-      </div>
-
-      {/* Order Details */}
-      <div className="order-header">
-        <span className="header-item">Item</span>
-        <span className="header-qty">Qty</span>
-        <span className="header-price">Price</span>
-      </div>
-      <div className="order-list">
-        {orders.map((order) => (
-          <div key={order.id} className="order-card">
-            <div className="order-details">
-              <span className="order-item">{order.item}</span>
-              <span className="order-qty">{order.qty}</span>
-              <span className="order-price">${(order.price * order.qty).toFixed(2)}</span>
+        <div className="table-info-compact">
+          {table ? (
+            <div className="table-details-row">
+              <div className="table-detail-pair">
+                <span className="detail-label">Table:</span>
+                <span className="detail-value">{table.number}</span>
+              </div>
+              <div className="table-detail-pair">
+                <span className="detail-label">Status:</span>
+                <span className="detail-value">{table.status}</span>
+              </div>
+              <div className="table-detail-pair">
+                <span className="detail-label">Employee:</span>
+                <span className="detail-value">{table.employee}</span>
+              </div>
+              <div className="table-detail-pair">
+                <span className="detail-label">Customers:</span>
+                <span className="detail-value">{table.customers}</span>
+              </div>
             </div>
-
-            {/* Editable Note Section */}
-            <div className="order-note">
-              <label htmlFor={`note-${order.id}`} className="visually-hidden">
-                Add a note for {order.item}
-              </label>
-              <input
-                id={`note-${order.id}`}
-                type="text"
-                value={order.note || ''}
-                onChange={(e) => handleNoteChange(order.id, e.target.value)}
-                placeholder="Add a note"
-                className="note-input"
-              />
-              <button
-                className="delete-btn"
-                aria-label={`Delete ${order.item}`}
-                onClick={() => handleDeleteItem(order.id)}
-              >
-                <i className="bi bi-trash" />
-              </button>
-            </div>
-          </div>
-        ))}
+          ) : (
+            <p className="no-table">No table selected</p>
+          )}
+        </div>
       </div>
 
-      {/* Subtotal and Continue to Bills */}
+      <div className="orders-section">
+        <div className="order-list-header">
+          <span className="header-item">Item</span>
+          <span className="header-qty">Qty</span>
+          <span className="header-price">Price</span>
+        </div>
+        
+        <div className="order-list-expanded">
+          {orders.map((order) => (
+            <div key={order.id} className="order-item-card">
+              <div className="order-main-details">
+                <span className="item-name">{order.item}</span>
+                <input
+                  type="number"
+                  min="0"
+                  value={order.qty}
+                  onChange={(e) => handleQtyChange(order.id, e.target.value)}
+                  className="qty-input"
+                  aria-label={`Quantity for ${order.item}`}
+                />
+                <span className="item-price">${(order.price * order.qty).toFixed(2)}</span>
+              </div>
+              
+              <div className="order-item-note">
+                <input
+                  type="text"
+                  value={order.note || ''}
+                  onChange={(e) => handleNoteChange(order.id, e.target.value)}
+                  placeholder="Add note"
+                  className="note-input"
+                  aria-label={`Note for ${order.item}`}
+                />
+                <button
+                  className="delete-button"
+                  onClick={() => handleDeleteItem(order.id)}
+                  aria-label={`Delete ${order.item}`}
+                >
+                  <i className="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="order-footer">
-        <div className="subtotal">
-          <span>Subtotal:</span>
-          <span>${subtotal}</span>
-          <button className="btn-primary" onClick={handleProceedToBills}>
-            Continue to Bills
+        <div className="subtotal-section">
+          <span className="subtotal-label">Subtotal:</span>
+          <span className="subtotal-amount">${subtotal}</span>
+        </div>
+        <div className="action-buttons">
+          <button 
+            className="add-bill-button"
+            onClick={handleAddBill}
+            disabled={orders.length === 0}
+          >
+            Add Bill
           </button>
         </div>
       </div>
