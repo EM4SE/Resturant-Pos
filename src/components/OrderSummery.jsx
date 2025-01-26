@@ -44,7 +44,8 @@ const OrderSummary = ({ table, orders, setOrders }) => {
           itemName: order.item,
           quantity: order.qty,
           unitPrice: order.price,
-          totalPrice: order.price * order.qty
+          totalPrice: order.price * order.qty,
+          specialNote: order.note
         })),
         totalAmount: parseFloat(subtotal),
         orderStatus: "PENDING"
