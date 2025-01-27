@@ -34,21 +34,21 @@ const LiveTimer = ({ startTime }) => {
 const Home = () => {
   const navigate = useNavigate();
   const [salesData, setSalesData] = useState(500); // Placeholder for today's sales
-  const [tableSales, setTableSales] = useState([
+  const [tableSales, setTableSales] = useState([ 
     { table: 1, order: "Pizza", amount: 30 },
     { table: 2, order: "Burger", amount: 20 },
     { table: 3, order: "Pasta", amount: 25 }
   ]); // Sample table sales data
-  const [user, setUser] = useState(""); // User's name
+  const [user, setUser] = useState(null); // User data object
   const [loginTime, setLoginTime] = useState(""); // Login time
 
   // Fetch user data from localStorage on mount
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
+    const loggedInUserData = JSON.parse(localStorage.getItem("user")); // Parse the user data as an object
     const loggedInTime = localStorage.getItem("loginTime");
 
-    if (loggedInUser && loggedInTime) {
-      setUser(loggedInUser);
+    if (loggedInUserData && loggedInTime) {
+      setUser(loggedInUserData); // Set full user data
       setLoginTime(loggedInTime);
     } else {
       navigate("/"); // Redirect to login if user is not logged in
@@ -64,8 +64,8 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <h1>Welcome, {user}!</h1>
-      
+      <h1>Welcome, {user ? user.name : "Guest"}!</h1> {/* Display user's full name */}
+
       <div className="dashboard">
         <div className="dashboard-card">
           <h2>Today's Sales</h2>
@@ -103,7 +103,7 @@ const Home = () => {
       <div className="quick-actions">
         <h2>Quick Actions</h2>
         <div className="action-buttons">
-          <button className="action-btn" >Add New Order</button>
+          <button className="action-btn">Add New Order</button>
           <button className="action-btn">Process Payment</button>
           <button className="action-btn">View Reports</button>
         </div>

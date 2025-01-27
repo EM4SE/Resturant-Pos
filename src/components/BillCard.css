@@ -1,0 +1,173 @@
+.bill-card {
+  position: relative;
+  background-color: #24243e;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  width: 220px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.bill-card h5 {
+  color: #00bcd4;
+  margin: 0;
+}
+
+.bill-card p {
+  color: white;
+}
+
+.bill-card:hover {
+  transform: scale(1.05);
+}
+
+.bill-card.clicked {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.add-food-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background-color: #ff6b6b;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #ff4a4a;
+  transform: scale(1.1);
+}
+
+.add-button:active {
+  transform: scale(0.95);
+}
+
+
+
+.add-food-button:hover {
+  background-color: #218838;
+}
+.proceed-payment-button,
+.complete-payment-button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 90%;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.proceed-payment-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.proceed-payment-button:hover {
+  background-color: #45a049;
+}
+
+.complete-payment-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.complete-payment-button:hover {
+  background-color: #e53935;
+}
+.popup {
+  position: fixed; /* Fixes the popup to the screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+  display: flex; /* Flexbox to center the popup */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  z-index: 1000; /* Ensure it appears above all other elements */
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 400px; /* Adjust width to suit the design */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease; /* Optional animation for appearance */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.popup-content h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.popup-content select,
+.popup-content input {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.popup-actions button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popup-actions button:first-child {
+  background-color: #4CAF50;
+}
+
+.popup-actions button:first-child:hover {
+  background-color: #45a049;
+}
+
+.popup-actions button:last-child {
+  background-color: #f44336;
+}
+
+.popup-actions button:last-child:hover {
+  background-color: #e53935;
+}
